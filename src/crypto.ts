@@ -176,7 +176,11 @@ export async function symEncrypt(
   data: string
 ): Promise<string> {
   const encodedData = new TextEncoder().encode(data);
-  const iv = crypto.getRandomValues(new Uint8Array(16));
+  const iv = await webcrypto.subtle.generateKey(
+    { name: "AES-CBC", length: 128 },
+    true,
+    ["encrypt", "decrypt"]
+  ).then(key => webcrypto.subtle.exportKey("raw", key)).then(rawKey => new Uint8Array(rawKey.slice(0, 16)));  
 
   const encryptedData = await webcrypto.subtle.encrypt(
     {

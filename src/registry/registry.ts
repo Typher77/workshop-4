@@ -20,6 +20,9 @@ export async function launchRegistry() {
   _registry.use(express.json());
   _registry.use(bodyParser.json());
 
+  // TODO implement the status route
+  // _registry.get("/status", (req, res) => {});
+
   _registry.get("/status", (req, res) => {
     res.send("live");
   });
@@ -30,9 +33,9 @@ export async function launchRegistry() {
     res.json({ result: "success" });
   });
 
-  _registry.get("/getNodeRegistry", (req, res) => {
+  /* _registry.get("/getNodeRegistry", (req, res) => {
     res.json(getNodeRegistryBody);
-  });
+  });*/
 
   const server = _registry.listen(REGISTRY_PORT, () => {
     console.log(`registry is listening on port ${REGISTRY_PORT}`);

@@ -14,19 +14,25 @@ export async function simpleOnionRouter(nodeId: number) {
   onionRouter.use(express.json());
   onionRouter.use(bodyParser.json());
 
+  // TODO implement the status route
+  // onionRouter.get("/status", (req, res) => {});
+
   onionRouter.get("/status", (req, res) => {
     res.send("live");
   });
 
-  onionRouter.get("/getLastReceivedEncryptedMessage", (req, res) => {
+  onionRouter.get("/getLastReceivedEncryptedMessage", (_, res) => {
     res.json({ result: lastReceivedEncryptedMessage });
   });
-  onionRouter.get("/getLastReceivedDecryptedMessage", (req, res) => {
+
+  onionRouter.get("/getLastReceivedDecryptedMessage", (_, res) => {
     res.json({ result: lastReceivedDecryptedMessage });
   });
-  onionRouter.get("/getLastMessageDestination", (req, res) => {
+
+  onionRouter.get("/getLastMessageDestination", (_, res) => {
     res.json({ result: lastMessageDestination });
   });
+
   onionRouter.get("/getLastMessageSource", (req, res) => {
     res.json({ result: lastMessageSource });
   });
@@ -55,6 +61,7 @@ export async function simpleOnionRouter(nodeId: number) {
   });
   console.log(await response.json());
 
+  // /getPrivateKey
   onionRouter.get("/getPrivateKey", (req, res) => {
     res.json({ result: privateKey });
   });
